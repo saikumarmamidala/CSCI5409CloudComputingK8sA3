@@ -1,14 +1,18 @@
 from flask import Flask, request, jsonify
 import os
 import requests
+import logging
 
 app = Flask(__name__)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Persistent volume directory
 PV_DIR = "/saikumar_PV_dir/"
 
 @app.route('/store-file', methods=['POST'])
 def store_file():
+    logger.info("Received request to store file") 
     data = request.json
     filename = data.get('file')
     file_data = data.get('data')
@@ -40,4 +44,3 @@ def calculate():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=6000)
-    

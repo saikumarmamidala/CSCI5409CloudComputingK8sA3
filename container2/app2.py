@@ -1,12 +1,16 @@
 from flask import Flask, request, jsonify
 import os
+import logging
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 PV_DIR = "/saikumar_PV_dir/"
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
+    logger.info("Received request to calculate product sum")
     data = request.json
     filename = data.get('file')
     product = data.get('product')
@@ -30,4 +34,3 @@ def calculate():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=6001)
-    
