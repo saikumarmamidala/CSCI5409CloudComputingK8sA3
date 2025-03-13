@@ -1,19 +1,19 @@
 steps:
 # Build and push Container 1
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container1:latest', '-f', 'container1/Dockerfile', '.']
-  dir: 'container1'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container1:latest', '-f', 'container1/Dockerfile', 'container1']
+  dir: '.'  # Set the working directory to the root of the repository
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container1:latest']
 
 # Build and push Container 2
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container2:latest', '-f', 'container2/Dockerfile', '.']
-  dir: 'container2'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container2:latest', '-f', 'container2/Dockerfile', 'container2']
+  dir: '.'  # Set the working directory to the root of the repository
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container2:latest']
-
+  
 options:
   logging: CLOUD_LOGGING_ONLY
