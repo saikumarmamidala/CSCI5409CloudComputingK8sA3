@@ -15,13 +15,14 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container2:latest']
 
-# Set up Kubernetes authentication
+# Authenticate with Kubernetes
 - name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: 'bash'
   args:
     - '-c'
     - |
       gcloud container clusters get-credentials my-cluster --zone us-central1-c &&
+      kubectl delete pvc saikumar-pvc --ignore-not-found &&
       kubectl apply -f kubernetes/
   env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
