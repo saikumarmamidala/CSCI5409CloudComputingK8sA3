@@ -1,5 +1,5 @@
-FROM python:3.9
+FROM python:3.9-slim
 WORKDIR /app
+RUN pip install --no-cache-dir flask requests
 COPY app1.py .
-RUN pip install flask requests
 CMD ["python", "app1.py"]

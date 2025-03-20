@@ -2,11 +2,11 @@ from flask import Flask, request, jsonify
 import os
 import logging
 
+app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-app = Flask(__name__)
 
-PV_DIR = "/mnt/data/" 
+PV_DIR = "/mnt/data/"
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
@@ -18,8 +18,13 @@ def calculate():
     if not filename or not product:
         return jsonify({"file": None, "error": "Invalid JSON input."}), 400
 
+    file_path = os.path.join(PV_DIR, filename)
+
+    if not os.path.exists(file_path):
+        return jsonify({"file": filename, "error": "File not found."}), 404
+
     try:
-        with open(PV_DIR + filename, "r") as f:
+        with open(file_path, "r") as f:
             lines = f.readlines()
 
         if not lines[0].strip() == "product, amount":
@@ -27,9 +32,8 @@ def calculate():
 
         total = sum(int(line.split(",")[1]) for line in lines[1:] if line.split(",")[0] == product)
         return jsonify({"file": filename, "sum": total})
-    except FileNotFoundError:
-        return jsonify({"file": filename, "error": "File not found."}), 404
-    except Exception:
+    except Exception as e:
+        logger.error(f"Error processing file: {str(e)}")
         return jsonify({"file": filename, "error": "Error processing file."}), 500
 
 if __name__ == "__main__":

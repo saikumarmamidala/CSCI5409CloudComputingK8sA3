@@ -4,11 +4,11 @@ metadata:
   name: saikumar-pv
 spec:
   capacity:
-    storage: 10Gi 
+    storage: 10Gi
   accessModes:
-    - ReadWriteOnce  
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard  
+  storageClassName: saikumar-storage
   gcePersistentDisk:
     pdName: gke-persistentvol-disk
     fsType: ext4

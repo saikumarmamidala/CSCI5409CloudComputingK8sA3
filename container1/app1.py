@@ -12,8 +12,9 @@ PV_DIR = "/mnt/data/"
 
 @app.route('/store-file', methods=['POST'])
 def store_file():
-    logger.info("Received request to store file") 
+    logger.info("Received request to store file")
     data = request.json
+
     filename = data.get('file')
     file_data = data.get('data')
 
@@ -21,14 +22,16 @@ def store_file():
         return jsonify({"file": None, "error": "Invalid JSON input."}), 400
 
     try:
-        with open(PV_DIR + filename, "w") as f:
+        with open(os.path.join(PV_DIR, filename), "w") as f:
             f.write(file_data)
         return jsonify({"file": filename, "message": "Success."})
     except Exception as e:
+        logger.error(f"Error storing file: {str(e)}")
         return jsonify({"file": filename, "error": "Error while storing the file."}), 500
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
+    logger.info("Received request to calculate")
     data = request.json
     filename = data.get('file')
     product = data.get('product')
@@ -39,7 +42,8 @@ def calculate():
     try:
         response = requests.post("http://container2-service:6001/calculate", json={"file": filename, "product": product})
         return response.json()
-    except Exception:
+    except Exception as e:
+        logger.error(f"Error processing file: {str(e)}")
         return jsonify({"file": filename, "error": "Error processing file."}), 500
 
 if __name__ == "__main__":
