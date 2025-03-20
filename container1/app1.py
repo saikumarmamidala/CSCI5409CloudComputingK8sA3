@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Persistent volume directory
-PV_DIR = "/saikumar_PV_dir/"
+PV_DIR = "/mnt/data/" 
 
 @app.route('/store-file', methods=['POST'])
 def store_file():

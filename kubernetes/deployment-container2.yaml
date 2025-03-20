@@ -18,9 +18,9 @@ spec:
         ports:
         - containerPort: 6001
         volumeMounts:
-        - mountPath: /saikumar_PV_dir/
-          name: saikumar-pvc
+        - mountPath: /mnt/data
+          name: saikumar-storage
       volumes:
-      - name: saikumar-pvc
+      - name: saikumar-storage
         persistentVolumeClaim:
           claimName: saikumar-pvc
