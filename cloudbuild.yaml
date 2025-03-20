@@ -19,7 +19,7 @@ steps:
   args: ['apply', '-f', 'kubernetes/']
   env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-central1'
-    - 'CLOUDSDK_CONTAINER_CLUSTER=saikumar-cluster'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
   
 options:
   logging: CLOUD_LOGGING_ONLY
