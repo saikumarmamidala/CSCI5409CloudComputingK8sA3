@@ -2,7 +2,7 @@ steps:
 # Build and push Container 1
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container1:latest', '-f', 'container1/Dockerfile', 'container1']
-  dir: '.'  # Set the working directory to the root of the repository
+  dir: '.'
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container1:latest']
@@ -10,16 +10,22 @@ steps:
 # Build and push Container 2
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container2:latest', '-f', 'container2/Dockerfile', 'container2']
-  dir: '.'  # Set the working directory to the root of the repository
+  dir: '.'
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container2:latest']
 
+# Set up Kubernetes authentication
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['apply', '-f', 'kubernetes/']
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      gcloud container clusters get-credentials my-cluster --zone us-central1-c &&
+      kubectl apply -f kubernetes/
   env:
-    - 'CLOUDSDK_COMPUTE_ZONE=us-central1'
+    - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
     - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
-  
+
 options:
   logging: CLOUD_LOGGING_ONLY
