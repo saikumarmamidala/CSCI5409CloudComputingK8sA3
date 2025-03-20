@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: container1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: container1
+  template:
+    metadata:
+      labels:
+        app: container1
+    spec:
+      containers:
+      - name: container1
+        image: us-central1-docker.pkg.dev/cloudk8sa3/kubernetes-images/container1:latest
+        ports:
+        - containerPort: 6000
+        volumeMounts:
+        - mountPath: /saikumar_PV_dir/
+          name: saikumar-pvc
+      volumes:
+      - name: saikumar-pvc
+        persistentVolumeClaim:
+          claimName: saikumar-pvc
