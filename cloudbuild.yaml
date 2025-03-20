@@ -18,12 +18,6 @@ steps:
 # Authenticate with Kubernetes
 - name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      gcloud container clusters get-credentials my-cluster --zone us-central1-c &&
-      kubectl delete pvc saikumar-pvc --ignore-not-found &&
-      kubectl apply -f kubernetes/
   env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
     - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
