@@ -8,7 +8,15 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard
+  storageClassName: standard  
   gcePersistentDisk:
     pdName: gke-persistentvol-disk  
     fsType: ext4
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values:
+          - us-central1-c
