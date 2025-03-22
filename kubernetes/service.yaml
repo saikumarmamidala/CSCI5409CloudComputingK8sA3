@@ -7,8 +7,8 @@ spec:
   selector:
     app: container1
   ports:
-  - port: 6000
-    targetPort: 6000
+    - port: 80
+      targetPort: 6000
 
 ---
 apiVersion: v1
