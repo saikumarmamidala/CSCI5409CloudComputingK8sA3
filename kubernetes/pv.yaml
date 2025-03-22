@@ -20,4 +20,3 @@ spec:
           operator: In
           values:
           - us-central1-c
-          
