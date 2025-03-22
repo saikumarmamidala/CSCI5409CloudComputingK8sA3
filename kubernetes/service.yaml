@@ -9,6 +9,7 @@ spec:
   ports:
     - port: 80
       targetPort: 6000
+      protocol: TCP
 
 ---
 apiVersion: v1
@@ -22,3 +23,4 @@ spec:
   ports:
   - port: 6001
     targetPort: 6001
+    protocol: TCP
