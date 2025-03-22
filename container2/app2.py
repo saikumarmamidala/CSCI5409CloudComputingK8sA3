@@ -6,7 +6,7 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-PV_DIR = "/mnt/data/"
+PV_DIR = "/saikumar_PV_dir/"
 
 @app.route('/calculate', methods=['POST'])
 def calculate():

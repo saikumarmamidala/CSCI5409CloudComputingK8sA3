@@ -18,7 +18,7 @@ spec:
         ports:
         - containerPort: 6000
         volumeMounts:
-        - mountPath: /mnt/data
+        - mountPath: /saikumar_PV_dir/
           name: saikumar-storage
       volumes:
       - name: saikumar-storage
