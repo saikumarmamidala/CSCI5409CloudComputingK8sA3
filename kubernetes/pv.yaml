@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard  s
+  storageClassName: standardgit
   gcePersistentDisk:
     pdName: gke-persistentvol-disk  
     fsType: ext4
